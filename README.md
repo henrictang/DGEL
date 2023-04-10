@@ -26,7 +26,7 @@ We utilize three public datasets: Wikipedia, Reddit and Foursquare.
 <br> https://sites.google.com/site/yangdingqi/home/foursquare-dataset
 
 ## Run the codes
-Please unzip the datasets first. Also you need to create the saved_models/ and the results/ directories.
+Please unzip the datasets first. Also you need to create the `saved_models/` and the `results/` directories.
 ### Train model
 To train DGEL, please run the following basic commands:
 ```
