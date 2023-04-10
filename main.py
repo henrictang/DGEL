@@ -17,7 +17,7 @@ from copy import deepcopy
 # Initialize Parameters
 parser = argparse.ArgumentParser()
 parser.add_argument('--dataset', default="wikipedia", help='Name of the dataset')
-parser.add_argument('--epochs', default=20, type=int, help='Number of epochs to train the model')
+parser.add_argument('--epochs', default=30, type=int, help='Number of epochs to train the model')
 parser.add_argument('--embedding_dim', default=32, type=int, help='Number of dimensions of the dynamic embedding')
 parser.add_argument('--sample_length', type=int, default=100, help='sample length')
 parser.add_argument('--bpr_coefficient', type=float, default=0.0005, help='BPR is extremely bigger, e.g, 0.79. But each MSE is much small, e.g, 0.0008, so bpr_coefficient should be [0.001, 0.0005]')
