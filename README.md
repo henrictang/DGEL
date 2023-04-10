@@ -1,5 +1,5 @@
 # Dynamic Graph Evolution Learning for Recommendation
-This repository contains pyTorch codes and datasets for the paper:
+This repository contains PyTorch codes and datasets for the paper:
 >Haoran Tang, Shiqing Wu, Guandong Xu, and Qing Li. 2023. Dynamic Graph Evolution Learning for Recommendation. In SIGIR’23, July 23–27, 2023, Taipei, Taiwan.
 
 ## Introduction
