@@ -197,6 +197,7 @@ class DGEL(nn.Module):
     # re-scaling network
     def re_scaling(self, embeddings, target=None):
         if embeddings is None:
+            print('No embeddings to re-scale')
             return embeddings
 
         # Re-scaling Network
@@ -379,3 +380,5 @@ def set_embeddings_training_end(user_embeddings, item_embeddings, user_embedding
 
     user_embeddings.detach_()
     item_embeddings.detach_()
+
+
