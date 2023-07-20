@@ -45,7 +45,7 @@ CUDA_VISIBLE_DEVICES=0 python main.py --dataset reddit --embedding_dim 64 --samp
 CUDA_VISIBLE_DEVICES=0 python main.py --dataset foursquare --embedding_dim 32 --sample_length 200 --epochs 30
 ```
 `--dataset:` indicating the data name you select
-<br>`--embedding_dim:` diminsion of each dynamic sub-embedding (final_embedding_dim=3*)
+<br>`--embedding_dim:` diminsion of each dynamic sub-embedding
 <br>`--sample_length:` the number of neighbors
 <br>`--epochs`: the number of training epochs
 <br>`Note:` There are some other hyper-parameters in codes but we have set the optimal values.
