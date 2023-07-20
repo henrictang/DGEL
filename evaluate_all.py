@@ -2,7 +2,6 @@
 
 '''
 This is evaluating code of DGEL
-The load_data and t-batch method refer to JODIE which we have already cited
 If you use our code or our paper, please cite our paper:
 Dynamic Graph Evolution Learning for Recommendation
 published at SIGIR 2023
@@ -284,6 +283,3 @@ for epp in range(0, args.epochs):
     print('\n')
     fw.flush()
     fw.close()
-
-
-
