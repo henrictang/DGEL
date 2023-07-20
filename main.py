@@ -24,7 +24,6 @@ parser.add_argument('--bpr_coefficient', type=float, default=0.0005, help='BPR i
 parser.add_argument('--l2u', type=float, default=1.0, help='regular coefficient of user')
 parser.add_argument('--l2i', type=float, default=1.0, help='regular coefficient of item')
 parser.add_argument('--l2', type=float, default=1e-2, help='l2 penalty')
-parser.add_argument('--gpu', default=0, type=int, help='ID of the gpu to run on')
 parser.add_argument('--span_num', default=500, type=int, help='time span number')
 parser.add_argument('--train_proportion', default=0.8, type=float, help='Fraction of interactions (from the beginning) that are used for training.The next 10% are used for validation and the next 10% for testing')
 args = parser.parse_args()
@@ -298,4 +297,3 @@ for ep in range(args.epochs):
 print("\n***** Training complete. Saving final model. *****\n")
 save_model(model, optimizer, args, ep, user_embeddings_dystat, item_embeddings_dystat, train_end_idx, user_adj, item_adj,
            user_timestamp_for_adj, item_timestamp_for_adj, user_embeddings_timeseries, item_embeddings_timeseries)
-

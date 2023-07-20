@@ -22,7 +22,6 @@ parser.add_argument('--bpr_coefficient', type=float, default=0.0005, help='BPR i
 parser.add_argument('--l2u', type=float, default=1.0, help='regular coefficient of user')
 parser.add_argument('--l2i', type=float, default=1.0, help='regular coefficient of item')
 parser.add_argument('--l2', type=float, default=1e-2, help='l2 penalty')
-parser.add_argument('--gpu', default=0, type=int, help='ID of the gpu to run on. If set to -1 (default), the GPU with most free memory will be chosen.')
 parser.add_argument('--span_num', default=500, type=int, help='time span number')
 parser.add_argument('--train_proportion', default=0.8, type=float, help='Fraction of interactions (from the beginning) that are used for training.The next 10% are used for validation and the next 10% for testing')
 args = parser.parse_args()
@@ -285,5 +284,6 @@ for epp in range(0, args.epochs):
     print('\n')
     fw.flush()
     fw.close()
+
 
 
