@@ -24,42 +24,19 @@ series = {SIGIR '23}
 }
 ```
 
-## Datasets
-We utilize three public datasets: Wikipedia, Reddit and Foursquare.
-* The Wikipedia and Reddit datasets (already processed for use)
-<br> https://snap.stanford.edu/jodie/#datasets
-* The Foursquare dataset
-<br> https://sites.google.com/site/yangdingqi/home/foursquare-dataset
-
 ## Run the codes
-You need to create the `saved_models/` and the `results/` directories.
-### Train model
-To train DGEL, please run the following basic commands:
+Take the Wikipedia dataset as example.
+Run the following basic commands:
 ```
 CUDA_VISIBLE_DEVICES=0 python main.py --dataset wikipedia --embedding_dim 32 --sample_length 100 --epochs 30
-```
-```
-CUDA_VISIBLE_DEVICES=0 python main.py --dataset reddit --embedding_dim 64 --sample_length 150 --epochs 30
-```
-```
-CUDA_VISIBLE_DEVICES=0 python main.py --dataset foursquare --embedding_dim 32 --sample_length 200 --epochs 30
+CUDA_VISIBLE_DEVICES=0 python evaluate_all.py --dataset wikipedia --embedding_dim 32 --sample_length 100 --epochs 30
 ```
 `--dataset:` indicating the data name you select
 <br>`--embedding_dim:` diminsion of each dynamic sub-embedding
 <br>`--sample_length:` the number of neighbors
 <br>`--epochs`: the number of training epochs
 <br>`Note:` There are some other hyper-parameters in codes but we have set the optimal values.
-### Evaluate model
-To evaluate DGEL, please run the following basic commands:
-```
-CUDA_VISIBLE_DEVICES=0 python evaluate_all.py --dataset wikipedia --embedding_dim 32 --sample_length 100 --epochs 30
-```
-```
-CUDA_VISIBLE_DEVICES=0 python evaluate_all.py --dataset reddit --embedding_dim 64 --sample_length 150 --epochs 30
-```
-```
-CUDA_VISIBLE_DEVICES=0 python evaluate_all.py --dataset foursquare --embedding_dim 32 --sample_length 200 --epochs 30
-```
+
 
 ## Acknowledgements
 This research is supported by the dual degree PhD program from the Department of Computing at the Hong Kong Polytechnic University (PolyU) & the School of Computer Science at the University of Technology Sydney (UTS).
