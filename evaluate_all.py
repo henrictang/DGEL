@@ -50,7 +50,7 @@ test_end_idx = int(num_interactions * (args.train_proportion + 0.2))
 model = DGEL(args, num_features, num_users, num_items, final_embedding_dim).cuda()
 
 '''
-We don't re-train/fine-tune our model during the test stage to keep consistency with the real-time online scenarios.
+We don't re-train our model during the test stage to keep consistency with the real-time online scenarios.
 This avoids touching ground truth from test data and future information.
 The same setting is adopted for all baseline methods.
 '''
@@ -198,7 +198,7 @@ for epp in range(0, args.epochs):
 
         '''
         Note that: 
-        We don't re-train/fine-tune the model during test/online stage to keep consistency with the real-time online scenarios.
+        We don't re-train the model during test/online stage to keep consistency with the real-time online scenarios.
         This avoids touching ground truth from test data and future information.
         The same setting is adopted for all baseline methods.
         '''
