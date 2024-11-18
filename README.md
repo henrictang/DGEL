@@ -3,7 +3,7 @@ This repository contains PyTorch codes and datasets for the paper:
 >Haoran Tang, Shiqing Wu, Guandong Xu, and Qing Li. 2023. Dynamic Graph Evolution Learning for Recommendation. In Proceedings of the 46th International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR '23). Association for Computing Machinery, New York, NY, USA, 1589–1598. https://doi.org/10.1145/3539618.3591674.
 
 ## Introduction
-Dynamic Graph Evolution Learning (DEGL) aims to solve the graph-based real-time evolution problem for multi-round recommendation scenario by three efficient learning modules and also bridge the normalization with model learning by re-scaling enhancement network for better capturing the dynamics.
+Dynamic Graph Evolution Learning (DGEL) aims to solve the graph-based real-time evolution problem for multi-round recommendation scenario by three efficient learning modules and also bridge the normalization with model learning by re-scaling enhancement network for better capturing the dynamics.
 
 ## Citation
 If you want to use our codes or refer our paper, please cite it:
