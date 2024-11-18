@@ -13,7 +13,7 @@ parser.add_argument('--dataset', default="wikipedia", help='Name of the dataset'
 parser.add_argument('--epochs', default=30, type=int, help='Number of epochs to train the model')
 parser.add_argument('--embedding_dim', default=32, type=int, help='Number of dimensions of the dynamic embedding')
 parser.add_argument('--sample_length', type=int, default=100, help='sample length')
-parser.add_argument('--bpr_coefficient', type=float, default=0.0005, help='BPR is extremely bigger, e.g, 0.79. But each MSE is much small, e.g, 0.0008, so bpr_coefficient should be [0.001, 0.0005]')
+parser.add_argument('--bpr_coefficient', type=float, default=0.0005, help='BPR coefficient')
 parser.add_argument('--l2u', type=float, default=1.0, help='regular coefficient of user')
 parser.add_argument('--l2i', type=float, default=1.0, help='regular coefficient of item')
 parser.add_argument('--l2', type=float, default=1e-2, help='l2 penalty')
@@ -31,6 +31,8 @@ if args.train_proportion > 0.8:
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = '0'
 
+if not os.path.exists('results/'):
+    os.makedirs('results/')
 output_fname = 'results/prediction_on_test_%s_size%d_sample%d.txt' % (args.dataset, args.embedding_dim, args.sample_length)
 
 # Load Data

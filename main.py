@@ -15,7 +15,7 @@ parser.add_argument('--dataset', default="wikipedia", help='Name of the dataset'
 parser.add_argument('--epochs', default=30, type=int, help='Number of epochs to train the model')
 parser.add_argument('--embedding_dim', default=32, type=int, help='Number of dimensions of the dynamic embedding')
 parser.add_argument('--sample_length', type=int, default=100, help='sample length')
-parser.add_argument('--bpr_coefficient', type=float, default=0.0005, help='BPR is extremely bigger, e.g, 0.79. But each MSE is much small, e.g, 0.0008, so bpr_coefficient should be [0.001, 0.0005]')
+parser.add_argument('--bpr_coefficient', type=float, default=0.0005, help='BPR coefficient')
 parser.add_argument('--l2u', type=float, default=1.0, help='regular coefficient of user')
 parser.add_argument('--l2i', type=float, default=1.0, help='regular coefficient of item')
 parser.add_argument('--l2', type=float, default=1e-2, help='l2 penalty')
@@ -250,8 +250,8 @@ for ep in range(args.epochs):
                 neg_item_embeddings = item_embeddings[torch.LongTensor(neg_items).cuda(), :]
 
                 # BPR-loss for current t-batch
-                # The bpr loss is extremely bigger like 0.79 but each MSE loss is so small like 0.0008
-                # So the bpr_coefficient being 0.001 could balance the two task loss
+                # The bpr loss is extremely much bigger like 0.79 but each MSE loss is so small like 0.0008
+                # We set the bpr_coefficient as 0.0005 to balance the two task losses
                 bpr_loss = model.bpr_loss(user_embedding_output, item_embedding_output, neg_item_embeddings.detach())
                 loss += args.bpr_coefficient*bpr_loss
 

@@ -313,7 +313,7 @@ def save_model(model, optimizer, args, epoch, user_embeddings, item_embeddings, 
 
     if not os.path.exists(directory):
         os.makedirs(directory)
-    path = 'saved_models/%s/checkpoint_DGEL_epoch%d_size%d_sample%d_bpr%.3f.pth.tar' % (args.dataset, epoch, args.embedding_dim, args.sample_length, args.bpr_coefficient)
+    path = 'saved_models/%s/checkpoint_DGEL_epoch%d_size%d_sample%d.pth.tar' % (args.dataset, epoch, args.embedding_dim, args.sample_length)
 
     torch.save(state, path)
     print("*** Saved embeddings and model to file: %s ***\n\n" % path)
@@ -322,7 +322,7 @@ def save_model(model, optimizer, args, epoch, user_embeddings, item_embeddings, 
 # Load model
 def load_model(model, optimizer, args, epoch):
 
-    path = 'saved_models/%s/checkpoint_DGEL_epoch%d_size%d_sample%d_bpr%.3f.pth.tar' % (args.dataset, epoch, args.embedding_dim, args.sample_length, args.bpr_coefficient)
+    path = 'saved_models/%s/checkpoint_DGEL_epoch%d_size%d_sample%d.pth.tar' % (args.dataset, epoch, args.embedding_dim, args.sample_length)
     checkpoint = torch.load(path)
     print("Loading saved embeddings and model: %s" % path)
 
