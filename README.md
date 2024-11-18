@@ -25,17 +25,16 @@ series = {SIGIR '23}
 ```
 
 ## Run the codes
-Take the Wikipedia dataset as example.
-Run the following basic commands:
+Take the Wikipedia dataset as example. Run the following commands:
 ```
 CUDA_VISIBLE_DEVICES=0 python main.py --dataset wikipedia --embedding_dim 32 --sample_length 100 --epochs 30
 CUDA_VISIBLE_DEVICES=0 python evaluate_all.py --dataset wikipedia --embedding_dim 32 --sample_length 100 --epochs 30
 ```
-`--dataset:` indicating the data name you select
-<br>`--embedding_dim:` diminsion of each dynamic sub-embedding
-<br>`--sample_length:` the number of neighbors
+`--dataset`: indicating the data name you select
+<br>`--embedding_dim`: diminsion of each dynamic sub-embedding
+<br>`--sample_length`: the number of neighbors
 <br>`--epochs`: the number of training epochs
-<br>`Note:` There are some other hyper-parameters in codes but we have set the optimal values.
+<br>`Note`: There are some other hyper-parameters in codes but we have set the optimal values.
 
 
 ## Acknowledgements
