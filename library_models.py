@@ -320,7 +320,7 @@ def save_model(model, optimizer, args, epoch, user_embeddings, item_embeddings, 
 
 
 # Load model
-def load_model(model, optimizer, args, epoch):
+def load_model(model, args, epoch):
 
     path = 'saved_models/%s/checkpoint_DGEL_epoch%d_size%d_sample%d.pth.tar' % (args.dataset, epoch, args.embedding_dim, args.sample_length)
     checkpoint = torch.load(path)
@@ -349,10 +349,9 @@ def load_model(model, optimizer, args, epoch):
         item_embeddings_time_series = None
 
     model.load_state_dict(checkpoint['state_dict'])
-    optimizer.load_state_dict(checkpoint['optimizer'])
     model.cuda()
 
-    return [model, optimizer, user_embeddings, item_embeddings, user_adj, item_adj,
+    return [model, user_embeddings, item_embeddings, user_adj, item_adj,
             user_timestamp_for_adj, item_timestamp_for_adj,
             user_embeddings_time_series, item_embeddings_time_series, train_end_idx]
 
@@ -377,5 +376,4 @@ def set_embeddings_training_end(user_embeddings, item_embeddings, user_embedding
 
     user_embeddings.detach_()
     item_embeddings.detach_()
-
 

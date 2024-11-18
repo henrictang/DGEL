@@ -13,11 +13,6 @@ parser.add_argument('--dataset', default="wikipedia", help='Name of the dataset'
 parser.add_argument('--epochs', default=30, type=int, help='Number of epochs to train the model')
 parser.add_argument('--embedding_dim', default=32, type=int, help='Number of dimensions of the dynamic embedding')
 parser.add_argument('--sample_length', type=int, default=100, help='sample length')
-parser.add_argument('--bpr_coefficient', type=float, default=0.0005, help='BPR coefficient')
-parser.add_argument('--l2u', type=float, default=1.0, help='regular coefficient of user')
-parser.add_argument('--l2i', type=float, default=1.0, help='regular coefficient of item')
-parser.add_argument('--l2', type=float, default=1e-2, help='l2 penalty')
-parser.add_argument('--span_num', default=500, type=int, help='time span number')
 parser.add_argument('--train_proportion', default=0.8, type=float, help='Fraction of interactions (from the beginning) that are used for training.The next 10% are used for validation and the next 10% for testing')
 args = parser.parse_args()
 
@@ -51,23 +46,14 @@ train_end_idx = validation_start_idx = int(num_interactions * args.train_proport
 test_start_idx = int(num_interactions * (args.train_proportion + 0.1))
 test_end_idx = int(num_interactions * (args.train_proportion + 0.2))
 
-# Set batching timespan
-'''
-Timespan indicates how frequently the model is run and updated. 
-All interactions in one timespan are processed simultaneously. 
-Longer timespans mean more interactions are processed and the training time is reduced, however it requires more GPU memory.
-At the end of each timespan, the model is updated as well. So, longer timespan means less frequent model updates. 
-'''
-
-timespan = timestamp_sequence[-1] - timestamp_sequence[0]
-tbatch_timespan = timespan / args.span_num
-
 # Initialize model and parameters
 model = DGEL(args, num_features, num_users, num_items, final_embedding_dim).cuda()
-MSELoss = nn.MSELoss()
 
-learning_rate = 1e-3
-optimizer = optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=args.l2)
+'''
+We don't re-train/fine-tune our model during the test stage to keep consistency with the real-time online scenarios.
+This avoids touching ground truth from test data and future information.
+The same setting is adopted for all baseline methods.
+'''
 
 for epp in range(0, args.epochs):
     # Check if the output of the epoch is already processed. If so, move on.
@@ -83,9 +69,9 @@ for epp in range(0, args.epochs):
         f.close()
 
     # Load Trained Model
-    model, optimizer, user_embeddings_dystat, item_embeddings_dystat, user_adj, item_adj, \
+    model, user_embeddings_dystat, item_embeddings_dystat, user_adj, item_adj, \
     user_timestamp_for_adj, item_timestamp_for_adj, user_embeddings_timeseries, \
-    item_embeddings_timeseries, train_end_idx_training = load_model(model, optimizer, args, epp)
+    item_embeddings_timeseries, train_end_idx_training = load_model(model, args, epp)
     if train_end_idx != train_end_idx_training:
         sys.exit('Training proportion during training and testing are different. Aborting.')
 
@@ -107,17 +93,6 @@ for epp in range(0, args.epochs):
     validation_ranks = []
     test_ranks = []
 
-    ''' 
-    Here we use the trained model to make predictions for the validation and testing interactions.
-    The model does a forward pass from the start of validation till the end of testing.
-    For each interaction, the trained model is used to predict the embedding of the item it will interact with. 
-    This is used to calculate the rank of the true item the user actually interacts with.
-    
-    After this prediction, the errors in the prediction are used to calculate the loss and update the model parameters. 
-    This simulates the real-time feedback about the predictions that the model gets when deployed in-the-wild. 
-    '''
-
-    tbatch_start_time = None
     print("***** Making interaction predictions by forward pass (no t-batching) *****")
     print('start time:', datetime.datetime.now())
 
@@ -132,8 +107,6 @@ for epp in range(0, args.epochs):
         timestamp = timestamp_sequence[j]
         timestamp_for_adj = timedifference_sequence_for_adj[j]
 
-        if not tbatch_start_time:
-            tbatch_start_time = timestamp
         itemid_previous = user_previous_itemid_sequence[j]
 
         # Load user and item embeddings
@@ -225,9 +198,9 @@ for epp in range(0, args.epochs):
 
         '''
         Note that: 
-        we don't re-train the model during test/online stage to keep consistency with the real-world online scenario
-        and avoid touching touching ground truth from test data and future information.
-        Same operation for baselines methods
+        We don't re-train/fine-tune the model during test/online stage to keep consistency with the real-time online scenarios.
+        This avoids touching ground truth from test data and future information.
+        The same setting is adopted for all baseline methods.
         '''
 
         # current adj should not be allowed to touch future
@@ -281,3 +254,4 @@ for epp in range(0, args.epochs):
     print('\n')
     fw.flush()
     fw.close()
+
