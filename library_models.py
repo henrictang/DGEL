@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*
 '''
-This is implementation and support of the model DGEL
-If you use our code or our paper, please cite our paper:
-Dynamic Graph Evolution Learning for Recommendation
-published at SIGIR 2023
+This is implementation and support of the model DGEL.
 '''
 
 from __future__ import division

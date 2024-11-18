@@ -1,11 +1,6 @@
 # -*- coding: utf-8 -*
-
 '''
-This is training code of DGEL
-The load_data and t-batch method refer to JODIE which we have already cited
-If you use our code or our paper, please cite our paper:
-Dynamic Graph Evolution Learning for Recommendation
-published at SIGIR 2023
+This is training code of DGEL.
 '''
 
 import numpy as np

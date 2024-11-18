@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*
-
 '''
-This is evaluating code of DGEL
-If you use our code or our paper, please cite our paper:
-Dynamic Graph Evolution Learning for Recommendation
-published at SIGIR 2023
+This is evaluating code of DGEL.
 '''
 
 from library_data import *
