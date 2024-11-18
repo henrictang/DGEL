@@ -26,7 +26,7 @@ series = {SIGIR '23}
 
 ## Datasets
 We utilize three public datasets: Wikipedia, Reddit and Foursquare.
-* The Wikipedia and Reddit datasets (already processed)
+* The Wikipedia and Reddit datasets
 <br> https://snap.stanford.edu/jodie/#datasets
 * The Foursquare dataset
 <br> https://sites.google.com/site/yangdingqi/home/foursquare-dataset
