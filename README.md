@@ -34,8 +34,6 @@ CUDA_VISIBLE_DEVICES=0 python evaluate_all.py --dataset wikipedia --embedding_di
 <br>`--embedding_dim`: diminsion of each dynamic sub-embedding
 <br>`--sample_length`: the number of neighbors
 <br>`--epochs`: the number of training epochs
-<br>`Note`: There are some other hyper-parameters in codes but we have set the optimal values.
-
 
 ## Acknowledgements
 This research is supported by the dual degree PhD program from the Department of Computing at the Hong Kong Polytechnic University (PolyU) & the School of Computer Science at the University of Technology Sydney (UTS).
