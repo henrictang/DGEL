@@ -92,4 +92,3 @@ def load_network(args, time_scaling=True):
     return [user2id, user_sequence_id, user_timedifference_sequence, user_previous_itemid_sequence,
             item2id, item_sequence_id, item_timedifference_sequence,
             timestamp_sequence, feature_sequence, timedifference_sequence_for_adj]
-

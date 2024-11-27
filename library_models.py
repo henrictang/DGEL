@@ -377,3 +377,5 @@ def set_embeddings_training_end(user_embeddings, item_embeddings, user_embedding
     user_embeddings.detach_()
     item_embeddings.detach_()
 
+
+

@@ -16,8 +16,6 @@ parser.add_argument('--epochs', default=30, type=int, help='Number of epochs to 
 parser.add_argument('--embedding_dim', default=32, type=int, help='Number of dimensions of the dynamic embedding')
 parser.add_argument('--sample_length', type=int, default=100, help='sample length')
 parser.add_argument('--bpr_coefficient', type=float, default=0.0005, help='BPR coefficient')
-parser.add_argument('--l2u', type=float, default=1.0, help='regular coefficient of user')
-parser.add_argument('--l2i', type=float, default=1.0, help='regular coefficient of item')
 parser.add_argument('--l2', type=float, default=1e-2, help='l2 penalty')
 parser.add_argument('--span_num', default=500, type=int, help='time span number')
 parser.add_argument('--train_proportion', default=0.8, type=float, help='Fraction of interactions (from the beginning) that are used for training.The next 10% are used for validation and the next 10% for testing')
@@ -65,8 +63,7 @@ tbatch_timespan = timespan / args.span_num
 model = DGEL(args, num_features, num_users, num_items, final_embedding_dim).cuda()
 MSELoss = nn.MSELoss()
 
-learning_rate = 1e-3
-optimizer = optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=args.l2)
+optimizer = optim.AdamW(model.parameters(), lr=1e-3, weight_decay=args.l2)
 
 # Initialize embeddings
 # The initial user and item embeddings are learned during training as well
@@ -242,8 +239,8 @@ for ep in range(args.epochs):
                 item_embeddings_timeseries[tbatch_interactionids, :] = item_embedding_output
 
                 # Evolution loss for current updating from previous
-                loss += args.l2i*MSELoss(item_embedding_output.cuda(), item_embedding_input.cuda().detach())
-                loss += args.l2u*MSELoss(user_embedding_output.cuda(), user_embedding_input.cuda().detach())
+                loss += MSELoss(item_embedding_output.cuda(), item_embedding_input.cuda().detach())
+                loss += MSELoss(user_embedding_output.cuda(), user_embedding_input.cuda().detach())
 
                 # sample negative item for BPR-loss
                 neg_items = model.sample_for_BPR(lib.current_tbatches_user[i], num_items-1, lib.current_tbatches_user_adj[i], bpr_avoid=None)  # num_items = len(item2Id) + 1
